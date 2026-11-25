@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${titulo} + ' | App'">Detalle Beneficio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <style>
+        body { background-color: #f0f2f5; }
+        .sidebar { background: linear-gradient(180deg,#1a1a2e,#16213e); min-height: 100vh; width: 240px; padding: 20px 12px; }
+        .sidebar-link { color: rgba(255,255,255,.75); text-decoration: none; display: block; padding: 10px 16px; border-radius: 8px; transition: .2s; }
+        .sidebar-link:hover, .sidebar-link.active { background: rgba(255,255,255,.12); color: white; }
+        .main-content { flex: 1; padding: 30px; }
+        .layout { display: flex; min-height: 100vh; }
+        .card { border: none; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+        .info-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: #6c757d; font-weight: 600; }
+        .info-value { font-size: 1rem; color: #212529; }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <nav class="sidebar d-flex flex-column gap-1">
+        <div class="text-white fw-bold fs-5 mb-4 px-2">
+            <i class="bi bi-grid-fill me-2 text-primary"></i>Beneficios App
+        </div>
+        <a href="/web/beneficios" class="sidebar-link active">
+            <i class="bi bi-gift me-2"></i>Beneficios
+        </a>
+        <a href="/web/convocatorias" class="sidebar-link">
+            <i class="bi bi-megaphone me-2"></i>Convocatorias
+        </a>
+        <hr class="border-secondary my-2"/>
+        <a href="/web/beneficios/nuevo" class="sidebar-link">
+            <i class="bi bi-plus-circle me-2"></i>Nuevo Beneficio
+        </a>
+        <a href="/web/convocatorias/nueva" class="sidebar-link">
+            <i class="bi bi-plus-circle me-2"></i>Nueva Convocatoria
+        </a>
+    </nav>
+
+    <div class="main-content">
+        <div class="mb-4">
+            <a href="/web/beneficios" class="text-muted text-decoration-none small">
+                <i class="bi bi-arrow-left me-1"></i>Volver a la lista
+            </a>
+            <h4 class="fw-bold mt-2 mb-0">
+                <i class="bi bi-gift me-2 text-primary"></i>Detalle del Beneficio
+            </h4>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+                <h6 class="mb-0" th:text="${beneficio.nombre}"></h6>
+                <span th:if="${beneficio.estado == 'Activo'}" class="badge bg-success">Activo</span>
+                <span th:if="${beneficio.estado != 'Activo'}" class="badge bg-secondary">Inactivo</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="info-label">ID Beneficio</div>
+                        <div class="info-value" th:text="${beneficio.idBeneficio}"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-label">Categoría</div>
+                        <div class="info-value">
+                            <span class="badge bg-secondary fs-6" th:text="${beneficio.categoria}"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="info-label">Descripción</div>
+                        <div class="info-value" th:text="${beneficio.descripcion}"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-label">Fecha de Creación</div>
+                        <div class="info-value"
+                             th:text="${#temporals.format(beneficio.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${titulo} + ' | Beneficios App'">App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <style>
+        body { background-color: #f0f2f5; }
+        .navbar { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+        .card { border: none; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+        .card-header { border-radius: 12px 12px 0 0 !important; }
+        .btn-primary { background: #0d6efd; border: none; }
+        .table thead th { background-color: #1a1a2e; color: white; border: none; }
+        .badge-activo   { background-color: #198754; }
+        .badge-inactivo { background-color: #6c757d; }
+        .badge-activa   { background-color: #0d6efd; }
+        .badge-cerrada  { background-color: #dc3545; }
+        .sidebar-link { color: rgba(255,255,255,.75); text-decoration: none; display: block; padding: 10px 16px; border-radius: 8px; transition: .2s; }
+        .sidebar-link:hover, .sidebar-link.active { background: rgba(255,255,255,.12); color: white; }
+        .sidebar { background: linear-gradient(180deg,#1a1a2e,#16213e); min-height: 100vh; width: 240px; padding: 20px 12px; }
+        .main-content { flex: 1; padding: 30px; }
+        .layout { display: flex; min-height: 100vh; }
+    </style>
+</head>
+<body>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar d-flex flex-column gap-1">
+        <div class="text-white fw-bold fs-5 mb-4 px-2">
+            <i class="bi bi-grid-fill me-2 text-primary"></i>Beneficios App
+        </div>
+        <a th:href="@{/web/beneficios}"
+           th:classappend="${#httpServletRequest.requestURI.contains('/beneficios')} ? 'active' : ''"
+           class="sidebar-link">
+            <i class="bi bi-gift me-2"></i>Beneficios
+        </a>
+        <a th:href="@{/web/convocatorias}"
+           th:classappend="${#httpServletRequest.requestURI.contains('/convocatorias')} ? 'active' : ''"
+           class="sidebar-link">
+            <i class="bi bi-megaphone me-2"></i>Convocatorias
+        </a>
+        <hr class="border-secondary my-2"/>
+        <a href="/web/beneficios/nuevo" class="sidebar-link">
+            <i class="bi bi-plus-circle me-2"></i>Nuevo Beneficio
+        </a>
+        <a href="/web/convocatorias/nueva" class="sidebar-link">
+            <i class="bi bi-plus-circle me-2"></i>Nueva Convocatoria
+        </a>
+    </nav>
+
+    <!-- Main -->
+    <div class="main-content">
+        <!-- Flash success -->
+        <div th:if="${exito}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span th:text="${exito}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Page content -->
+        <div th:replace="${content}"><!-- contenido de cada página --></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
